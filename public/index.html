@@ -1,1 +1,26 @@
-Hello World!
+<!DOCTYPE html>
+
+<head>
+    <!-- chessjs requires jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js" integrity="sha512-xRllwz2gdZciIB+AkEbeq+gVhX8VB8XsfqeFbUh+SzHlN96dEduwtTuVuc2u9EROlmW9+yhRlxjif66ORpsgVA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- chessboardjs -->
+    <link rel="stylesheet" href="chessboardjs/css/chessboard-1.0.0.min.css">
+    <script src="chessboardjs/js/chessboard-1.0.0.min.js"></script>
+</head>
+
+
+<style type="text/css">
+    .highlight-white {
+      box-shadow: inset 0 0 3px 3px yellow;
+    }
+    .highlight-black {
+      box-shadow: inset 0 0 3px 3px blue;
+    }
+</style>
+
+<body>
+    <div id="myBoard" style="width: 400px"></div>
+    <script src="chess.js"></script>
+</body>
