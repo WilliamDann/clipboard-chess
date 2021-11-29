@@ -5,3 +5,7 @@ A chess server final project for the CSD 122 class at LWTech
 Please add your name here if you made a change to the project!
 
 - William Dann
+
+# Open Source Packages
+- Chess.js https://github.com/jhlywa/chess.js/blob/master/README.md
+- Chessboard.js https://github.com/oakmac/chessboardjs
