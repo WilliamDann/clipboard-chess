@@ -1,0 +1,22 @@
+{
+  "name": "csd122-final",
+  "version": "1.0.0",
+  "description": "csd 122 final project chess server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WilliamDann/csd122-final.git"
+  },
+  "author": "William Dann, Claudia Souza",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/WilliamDann/csd122-final/issues"
+  },
+  "homepage": "https://github.com/WilliamDann/csd122-final#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
