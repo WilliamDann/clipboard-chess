@@ -1,6 +1,9 @@
 module.exports = (app, db) => {
-    app.get('/ping', (req, res) => {
-        res.status(200);
-        res.send("Ping");
+    app.post('/game', (req, res) => {
+        
+    });
+
+    app.get('/get', (req, res) => {
+        
     });
 }
