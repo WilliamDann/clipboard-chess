@@ -4,6 +4,7 @@ class Chessgame {
         this.fenString = fenString;
     }
 }
+module.exports.Chessgame = Chessgame;
 
 function generatorID() {
     return '7yxxxx'.replace(/[xy]/g, function(c) {
@@ -11,3 +12,4 @@ function generatorID() {
       return v.toString(16);
     });
   }
+module.exports.generatorID = generatorID;
