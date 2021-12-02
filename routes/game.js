@@ -83,6 +83,12 @@ module.exports = (app, db) => {
             return;
         }
 
+        if (!db.games[req.body.gameID]) {
+            res.status(404);
+            res.send("Game not found");
+            return;
+        }
+
         const chessgame = Chess(db.games[req.body.gameID].fenString);
         const result    = chessgame.move(req.body.move);
 
