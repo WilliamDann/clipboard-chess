@@ -3,4 +3,4 @@ class Chessgame {
     {
         this.fenString = fenString;
     }
-}
+} module.exports.Chessgame = Chessgame;
