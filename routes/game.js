@@ -1,8 +1,8 @@
-const {Chessgame} = require('../chessgame')
+const {Chessgame, generatorID} = require('../chessgame')
 
 module.exports = (app, db) => {
     app.post("/game", (req, res) => {
-        const id = 'testid'
+        const id = generatorID()
 
         db.games[id] = new Chessgame('8/8/8/8/8/8/8/8');
 
