@@ -1,64 +1,20 @@
 // this is out of date
 
-Project Goals
-☐ Create, Read, Update, Delete users
-☐ Create, Read, Update Delete games
+☐ There needs to be GUI on the webpage for creating a game, reading a game, and deleting a game
+    ☐ A button to create a game needs to be added
+    ☐ A form where a code can be entered and sumitted to get game information needs to be added
+    ☐ When youre looking at a game a button to delete the game needs to be added
 
-☐ Be able to get a game on the server
-    ☐ CRUD game requests
-    ☐ Accept a request
-    ☐ OPTIONAL define request parameters like rating
+    The HTML file for the page is in public/index.html
 
-☐ OPTIONAL Game info
-    ☐ After a game is finished, update a users rating using the glicko2 rating equation
-    https://en.wikipedia.org/wiki/Glicko_rating_system
+☐ The starting position of new games needs to be set to the starting position of a chess game
+    The starting fen position of a chess game can be found on the FEN wikipedia page
 
-CRUD Users:
-    CRUD users at route /user
+☐ There needs to be a route to accept a challenge
+    ☐ How could we enure one opponent does not submit a move for the other?
 
-    ☐ Create user
-    route to POST a user
-    ☐ Read user
-    route to GET a user
-    ☐ Update user
-    route to PUT a user
-    ☐ Delete user
-    route to DELETE a user
-
-    ☐ Get a user's game history
-    route to get a user's game history from the DB
-
-CRUD Games:
-    CRUD games at route /game
-
-    ☐ Create game
-    route to POST a game
-    ☐ Read game
-    route to GET a game
-    ☐ Update game
-    route to PUT a game
-    ☐ Delete game 
-    route to DELETE a game
-
-CRUD Game Requests:
-    CRUD game requests at a route like /request
-
-    ☐ Create game request
-    route to POST a game request
-    ☐ GET game request
-    route to GET a game request
-    ☐ Update game request
-    route to PUT a game request
-    ☐ Delete game request
-    route to delete a game request
-
-
-    ☐ Accept Request
-    After one user POSTs a game request, another user should be able to send a request to accept it
-    this could be like request/accept with the request id
-
-    ☐ Get all open requests
-    route to get all the open game requests
-    
-    ☐ Delete inavtive game request
-    every so often the server should delete game requests when the user no longer active
+☐ There needs to be a route added to change the FEN position given a move
+    this should use the installed chessjs library
+    ☐ rejects illegal moves
+    ☐ rejects moves from a player who is not playing
+    ☐ 
