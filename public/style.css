@@ -1,0 +1,19 @@
+
+html, body {
+    margin: 10px 2em;
+    padding: 0;
+}
+
+body {
+    font: 62.5% Verdana, Helvetica, Arial, sans-serif;
+    color: #000;
+    background: #fff;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 0;
+}
+#title {
+    font-size: 1.5em;
+}
