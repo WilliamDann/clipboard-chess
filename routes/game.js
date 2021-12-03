@@ -98,7 +98,7 @@ module.exports = (app, db) => {
             return;
         }
 
-        db.games[req.body.gameID] = chessgame.fen()
+        db.games[req.body.gameID].fenString = chessgame.fen()
 
         res.status(200);
         res.send("Move made");

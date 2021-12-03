@@ -6,6 +6,7 @@ var $board = $('#myBoard')
 var game = new Chess()
 var squareToHighlight = null
 var squareClass = 'square-55d63'
+var gameID = null;
 
 function removeHighlights (color) {
   $board.find('.' + squareClass)
@@ -20,25 +21,42 @@ function onDragStart (source, piece, position, orientation) {
   if (piece.search(/^b/) !== -1) return false
 }
 
-function makeRandomMove () {
-  var possibleMoves = game.moves({
-    verbose: true
-  })
+// function makeRandomMove () {
+//   var possibleMoves = game.moves({
+//     verbose: true
+//   })
 
-  // game over
-  if (possibleMoves.length === 0) return
+//   // game over
+//   if (possibleMoves.length === 0) return
 
-  var randomIdx = Math.floor(Math.random() * possibleMoves.length)
-  var move = possibleMoves[randomIdx]
-  game.move(move.san)
+//   var randomIdx = Math.floor(Math.random() * possibleMoves.length)
+//   var move = possibleMoves[randomIdx]
+//   game.move(move.san)
 
-  // highlight black's move
-  removeHighlights('black')
-  $board.find('.square-' + move.from).addClass('highlight-black')
-  squareToHighlight = move.to
+//   // highlight black's move
+//   removeHighlights('black')
+//   $board.find('.square-' + move.from).addClass('highlight-black')
+//   squareToHighlight = move.to
 
-  // update the board to the new position
-  board.position(game.fen())
+//   // update the board to the new position
+//   board.position(game.fen())
+// }
+
+async function updateMove(gameID, move) {
+  console.log(gameID)
+  const response = await fetch('/game/move/', {
+    method: 'POST',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+    body: `gameID=${gameID}&move=${move}`
+  });
+  return response.text();
 }
 
 function onDrop (source, target) {
@@ -52,13 +70,15 @@ function onDrop (source, target) {
   // illegal move
   if (move === null) return 'snapback'
 
+  updateMove(gameID, move.san)
+
   // highlight white's move
   removeHighlights('white')
   $board.find('.square-' + source).addClass('highlight-white')
   $board.find('.square-' + target).addClass('highlight-white')
 
   // make random move for black
-  window.setTimeout(makeRandomMove, 250)
+  // window.setTimeout(makeRandomMove, 250)
 }
 
 function onMoveEnd () {
