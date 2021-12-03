@@ -12,13 +12,13 @@ module.exports = (app, db) => {
     });
 
     app.get('/game', (req, res) => {
-        if (!req.body.gameID) {
+        if (!req.query.gameID) {
             res.status(400);
             res.send('No gameID specified');
             return;
         }
 
-        if (!db.games[req.body.gameID]) {
+        if (!db.games[req.query.gameID]) {
             res.status(404);
             res.send("Game not found");
 
@@ -26,7 +26,7 @@ module.exports = (app, db) => {
         }
 
         res.status(200);
-        res.send(db.games[req.body.gameID]);
+        res.send(db.games[req.query.gameID]);
     });
 
     app.delete('/game', (req, res) => {
@@ -90,7 +90,7 @@ module.exports = (app, db) => {
         }
 
         const chessgame = Chess(db.games[req.body.gameID].fenString);
-        const result    = chessgame.move(req.body.move);
+        const result    = chessgame.move(decodeURIComponent(req.body.move));
 
         if (!result) {
             res.status(400);
