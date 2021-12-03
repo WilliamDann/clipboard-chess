@@ -17,3 +17,10 @@ h1 {
 #title {
     font-size: 1.5em;
 }
+
+#boardChess {
+    margin-top: 60px;
+    margin-left: 10px;
+    margin-right: 10px;
+    text-align: right;
+}
