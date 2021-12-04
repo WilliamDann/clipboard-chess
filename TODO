@@ -1,20 +1,2 @@
-// this is out of date
-
-☐ There needs to be GUI on the webpage for creating a game, reading a game, and deleting a game
-    ☐ A button to create a game needs to be added
-    ☐ A form where a code can be entered and sumitted to get game information needs to be added
-    ☐ When youre looking at a game a button to delete the game needs to be added
-
-    The HTML file for the page is in public/index.html
-
-☐ The starting position of new games needs to be set to the starting position of a chess game
-    The starting fen position of a chess game can be found on the FEN wikipedia page
-
-☐ There needs to be a route to accept a challenge
-    ☐ How could we enure one opponent does not submit a move for the other?
-
-☐ There needs to be a route added to change the FEN position given a move
-    this should use the installed chessjs library
-    ☐ rejects illegal moves
-    ☐ rejects moves from a player who is not playing
-    ☐ 
+☐ BUG: the server does not reject moves that are illegal because they put the king in check
+☐ Right now the server does not care who submits a move, so long as the move is legal. It should instead assign one player as white and one as black and only accept the appropiate moves from the apropiate sides
