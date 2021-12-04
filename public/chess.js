@@ -1,6 +1,3 @@
-// NOTE: this example uses the chess.js library:
-// https://github.com/jhlywa/chess.js
-
 // globals
 var board = null
 var game = new Chess()
@@ -25,7 +22,7 @@ async function fetchPosition() {
   });
 
   const position = await response.json();
-  board.position(position.fenString, true);
+  board.position(position.fenString);
 }
 
 async function updatePosition(move) {
@@ -43,36 +40,9 @@ async function updatePosition(move) {
   });
 }
 
-function onDragStart (source, piece, position, orientation) {
-  // do not pick up pieces if the game is over
-  if (game.game_over()) return false
-
-  // only pick up pieces for the side to move
-  if ((game.turn() === 'w' && piece.search(/^b/) !== -1) ||
-      (game.turn() === 'b' && piece.search(/^w/) !== -1)) {
-    return false
-  }
-}
-
 function onDrop (source, target) {
-  // see if the move is legal
-  var move = game.move({
-    from: source,
-    to: target,
-    promotion: 'q' // NOTE: always promote to a queen for example simplicity
-  })
-  
-  // illegal move
-  if (move === null) return 'snapback'
-
-  updatePosition(move.san)
+  updatePosition(`${source}${target}`)
   updateStatus()
-}
-
-// update the board position after the piece snap
-// for castling, en passant, pawn promotion
-function onSnapEnd () {
-  board.position(game.fen())
 }
 
 function updateStatus () {
@@ -112,9 +82,7 @@ function updateStatus () {
 var config = {
   draggable: true,
   position: 'start',
-  onDragStart: onDragStart,
   onDrop: onDrop,
-  onSnapEnd: onSnapEnd
 }
 board = Chessboard('myBoard', config)
 

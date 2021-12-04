@@ -24,21 +24,26 @@
 <body>
   <h1 id="title">JS Project - Chess Board Game</h1>
   <p id="groupname">by William Dann and Claudia Souza</p>
+  <h4>GameID: </h4><h4 id="game_id"></h4>
 
-  <br>
-  <h3>Join a Game</h3>
-  <form id="info_form" name = "getName">
-    <label for = "user_name"> Player name: </label>
-    <input type = "text" name = "PlayerName" id = "user_name"><br>
-    <label for = "join_code"> Join Code: </label>
-    <input type = "text" name = "JoinCode" id = "join_code">
-    <input type = "submit" value = "Send">
-    </form>
-    <br>
+  <div id="info_panel">
 
-    <h3>Create a Game</h3>
-    <button onclick="handleNewGame()">New Game</button>
     <br>
+    <h3>Join a Game</h3>
+    <form id="info_form" name = "getName">
+      <label for = "user_name"> Player name: </label>
+      <input type = "text" name = "PlayerName" id = "user_name"><br>
+      <label for = "join_code"> Join Code: </label>
+      <input type = "text" name = "JoinCode" id = "join_code">
+      <input type = "submit" value = "Send">
+      </form>
+      <br>
+
+      <h3>Create a Game</h3>
+      <button onclick="handleNewGame()">New Game</button>
+      <br>
+
+    </div>
 
     <script>
         // handle form submission
@@ -53,10 +58,13 @@
           if (gameID == "")
             return alert ("Please enter the code of a game you wish to join.");
 
-          console.log("Loaded:")
-          console.log(player_name)
-          console.log(gameID)
-          console.log('---')
+          console.log("Loaded:");
+          console.log(player_name);
+          console.log(gameID);
+          console.log('---');
+
+          const info = document.querySelector("#info_panel");
+          info.parentElement.removeChild(info);
         });
 
 
@@ -84,6 +92,9 @@
           gameID = newid;
           console.log("Game created: " + newid);
           updateStatus()
+
+          const info = document.querySelector("#info_panel");
+          info.parentElement.removeChild(info);
         }
 
     </script>
@@ -96,8 +107,6 @@
     <div id="fen"></div>
     <label>PGN:</label>
     <div id="pgn"></div>
-    <label>GameID: </label>
-    <div id="game_id"></div>
     
     <script src="chess.js"></script>
     </gameArea>
