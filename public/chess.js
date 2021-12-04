@@ -1,12 +1,15 @@
 // NOTE: this example uses the chess.js library:
 // https://github.com/jhlywa/chess.js
 
+// globals
 var board = null
 var game = new Chess()
 var $status = $('#status')
 var $fen = $('#fen')
 var $pgn = $('#pgn')
-var gameID = "7ab0c4"
+
+var player_name = null
+var gameID      = null
 
 async function fetchPosition() {
   const response = await fetch('/game?gameID='+gameID, {
@@ -117,5 +120,7 @@ board = Chessboard('myBoard', config)
 updateStatus()
 
 setInterval(() => {
-  fetchPosition(gameID);
+  if (gameID) {
+    fetchPosition(gameID);
+  }
 }, 1000)
