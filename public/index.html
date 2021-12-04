@@ -58,8 +58,36 @@
           console.log(gameID)
           console.log('---')
         });
+
+
+        async function createNewGame() {
+          const response = await fetch('/game', {
+            method: 'POST',
+            cors: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            redirect: 'follow',
+            referrerPolicy: 'no-referrer',
+          });
+
+          const data = await response.json();
+          return data.id;
+        }
+
+        async function handleNewGame() {
+          // send request to create new game
+          const newid = await createNewGame();
+
+          gameID = newid;
+          console.log("Game created: " + newid);
+          updateStatus()
+        }
+
     </script>
-    
+
     <gameArea id="boardChess"> 
     <div id="myBoard" style="width: 400px"></div>
     <label>Status:</label>
@@ -68,6 +96,8 @@
     <div id="fen"></div>
     <label>PGN:</label>
     <div id="pgn"></div>
+    <label>GameID: </label>
+    <div id="game_id"></div>
     
     <script src="chess.js"></script>
     </gameArea>
