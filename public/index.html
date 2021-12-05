@@ -25,8 +25,28 @@
 </style>
 
 <body>
-  <h1 id="title">JS Project - Chess Board Game</h1>
+  <h1 id="title">JS Project - Multiplayer Chess Server</h1>
   <p id="groupname">by William Dann and Claudia Souza</p>
+  <h4>GameID: </h4><h4 id="game_id"></h4>
+
+  <div id="info_panel">
+
+    <br>
+    <h3>Join a Game</h3>
+    <form id="info_form" name = "getName">
+      <label for = "user_name"> Player name: </label>
+      <input type = "text" name = "PlayerName" id = "user_name"><br>
+      <label for = "join_code"> GameID: </label>
+      <input type = "text" name = "JoinCode" id = "join_code">
+      <input type = "submit" value = "Send">
+      </form>
+      <br>
+
+      <h3>Create a Game</h3>
+      <button onclick="handleNewGame()">New Game</button>
+      <br>
+
+    </div>
 
   <form name="getName" onsubmit="return getUserName()" method="post">
     <label for="user_name"> Player name: </label>

@@ -90,7 +90,7 @@ module.exports = (app, db) => {
         }
 
         const chessgame = Chess(db.games[req.body.gameID].fenString);
-        const result    = chessgame.move(decodeURIComponent(req.body.move));
+        const result    = chessgame.move(decodeURIComponent(req.body.move), {sloppy: true});
 
         if (!result) {
             res.status(400);
