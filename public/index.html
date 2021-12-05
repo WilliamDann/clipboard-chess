@@ -24,15 +24,20 @@
 <body>
   <h1 id="title">JS Project - Multiplayer Chess Server</h1>
   <p id="groupname">by William Dann and Claudia Souza</p>
-  <h4>GameID: </h4><h4 id="game_id"></h4>
-
+  
+  <br>
+  
   <div id="info_panel">
+    <h3>User Info</h3>
+    <label>Set Name: </label>
+    <input id="name_input">
+    <button onclick="player_name=document.querySelector('#name_input').value">Set Name</button>
 
     <br>
     <h3>Join a Game</h3>
+
+
     <form id="info_form" name = "getName">
-      <label for = "user_name"> Player name: </label>
-      <input type = "text" name = "PlayerName" id = "user_name"><br>
       <label for = "join_code"> GameID: </label>
       <input type = "text" name = "JoinCode" id = "join_code">
       <input type = "submit" value = "Send">
@@ -40,21 +45,24 @@
       <br>
 
       <h3>Create a Game</h3>
-      <button onclick="handleNewGame()">New Game</button>
+      <button onclick="handleNewGame(true)">New Game as White</button>
+      <button onclick="handleNewGame(false)">New Game as Black</button>
+
       <br>
 
     </div>
 
+    <h4>GameID: </h4><h4 id="game_id"></h4>
+    
     <script>
-        // handle form submission
+        // handle join game form submission
         document.querySelector("form").addEventListener('submit', event => {
           event.preventDefault(); // prevent page from doing usual redirects and stuff
 
-          player_name = event.target.querySelector('#user_name').value;
-          gameID      = event.target.querySelector('#join_code').value;
+          gameID = event.target.querySelector('#join_code').value;
 
-          if (player_name == "") 
-            return alert ("Please enter a name.");
+          if (!player_name) 
+            return alert ("Please enter a name first.");
           if (gameID == "")
             return alert ("Please enter the code of a game you wish to join.");
 
@@ -63,12 +71,25 @@
           console.log(gameID);
           console.log('---');
 
+          joinGame();
+
           const info = document.querySelector("#info_panel");
           info.parentElement.removeChild(info);
         });
 
+        async function joinGame() {
+          const response = await fetchPosition();
+          if (!response.whitePlayer) {
+            return setPlayers(player_name)
+          }
+          if (!response.blackPlayer) {
+            return setPlayers(null, black=player_name)
+          }
 
-        async function createNewGame() {
+          alert('No free space to join game!');
+        }
+
+        async function createNewGame(whitePlayer=true) {
           const response = await fetch('/game', {
             method: 'POST',
             cors: 'cors',
@@ -79,13 +100,17 @@
             },
             redirect: 'follow',
             referrerPolicy: 'no-referrer',
+            body: whitePlayer ? 'whitePlayer='+player_name : 'blackPlayer='+player_name // if white player then set whitePlayer to current user else set black player
           });
 
           const data = await response.json();
           return data.id;
         }
 
-        async function handleNewGame() {
+        async function handleNewGame(asWhite=true) {
+          if (!player_name) 
+            return alert("Please enter a name first");
+
           // send request to create new game
           const newid = await createNewGame();
 
@@ -99,8 +124,12 @@
 
     </script>
 
-    <gameArea id="boardChess"> 
+  <div id="boardChess"> </div>
+
+    <div id="blackPlayer"></div>
     <div id="myBoard" style="width: 400px"></div>
+    <div id="whitePlayer"></div><br>
+
     <label>Status:</label>
     <div id="status"></div>
     <label>FEN:</label>
@@ -109,6 +138,6 @@
     <div id="pgn"></div>
     
     <script src="chess.js"></script>
-    </gameArea>
+  </div>
     
 </body>

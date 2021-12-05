@@ -1,7 +1,9 @@
 class Chessgame {
-    constructor(fenString)
+    constructor(fenString, whitePlayer, blackPlayer)
     {
         this.fenString = fenString;
+        this.whitePlayer = whitePlayer;
+        this.blackPlayer = blackPlayer;
     }
 }
 module.exports.Chessgame = Chessgame;

@@ -7,6 +7,11 @@ module.exports = (app, db) => {
 
         db.games[id] = new Chessgame('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
 
+        if (req.body.whitePlayer)
+            db.games[id].whitePlayer = req.body.whitePlayer
+        if (req.body.blackPlayer)
+            db.games[id].blackPlayer = req.body.blackPlayer
+
         res.status(200);
         res.send({id: id});
     });
