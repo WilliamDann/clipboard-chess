@@ -64,7 +64,7 @@ async function updatePosition(move) {
     },
     redirect: 'follow',
     referrerPolicy: 'no-referrer',
-    body: "gameID="+encodeURIComponent(gameID)+"&move="+encodeURIComponent(move)
+    body: "gameID="+encodeURIComponent(gameID)+"&move="+encodeURIComponent(move)+"&player="+player_name
   });
 }
 

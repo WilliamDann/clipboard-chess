@@ -82,6 +82,11 @@ module.exports = (app, db) => {
             return;
         }
 
+        if (!req.body.player) {
+            res.status(400);
+            res.send("No player was specified")
+        }
+
         if (!req.body.move) {
             res.status(400);
             res.send("No move specified");
@@ -95,6 +100,18 @@ module.exports = (app, db) => {
         }
 
         const chessgame = Chess(db.games[req.body.gameID].fenString);
+        if (chessgame.turn() == 'w') {
+            if (db.games[req.body.gameID].whitePlayer != req.body.player) {
+                res.status(400);
+                return res.send("It is not your turn");
+            }
+        } else {
+            if (db.games[req.body.gameID].blackPlayer != req.body.player) {
+                res.status(400);
+                return res.send("It is not your turn");
+            }
+        }
+
         const result    = chessgame.move(decodeURIComponent(req.body.move), {sloppy: true});
 
         if (!result) {
