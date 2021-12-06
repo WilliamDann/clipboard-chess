@@ -112,12 +112,21 @@ module.exports = (app, db) => {
             }
         }
 
+        const moves     = chessgame.moves();
         const result    = chessgame.move(decodeURIComponent(req.body.move), {sloppy: true});
-
+        
+        
         if (!result) {
             res.status(400);
             res.send("Invalid move");
             return;
+        }
+        
+        // .move is allowing moves with check??
+        if (moves.indexOf(result.san) == -1) {
+            chessgame.undo();
+            res.status(400);
+            return res.send("Invalid move");
         }
 
         db.games[req.body.gameID].fenString = chessgame.fen()
