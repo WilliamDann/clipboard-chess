@@ -51,6 +51,7 @@ async function setPlayers(white=null, black=null) {
     referrerPolicy: 'no-referrer',
     body: payload
   });
+  return response;
 }
 
 async function updatePosition(move) {
