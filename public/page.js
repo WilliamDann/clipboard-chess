@@ -104,11 +104,3 @@ async function sendCreateGameRequest(whitePlayer=true) {
 }
 
 ///
-
-// set event to trigger on form submission
-document.querySelector("form").addEventListener('submit', event => {
-    event.preventDefault(); // prevent page from doing usual redirects and stuff
-    handleJoinGameButton();
-});
-  
-  
