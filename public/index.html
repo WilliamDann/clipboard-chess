@@ -56,18 +56,30 @@
     
     <script src="page.js"></script>
 
-  <div id="boardChess">
-    <div id="blackPlayer"></div>
-      <div id="myBoard" style="width: 400px"></div>
-      <div id="whitePlayer"></div><br>
+    <div class="row">
+      <div class="column">
+        <div id="blackPlayer"></div>
+        <div id="myBoard" style="width: 400px"></div>
+        <div id="whitePlayer"></div><br>
+  
+        <label>Status:</label>
+        <div id="status"></div>
+        <label>FEN:</label>
+        <div id="fen"></div>
+        <label>PGN:</label>
+        <div id="pgn"></div>
+      </div>
 
-    <label>Status:</label>
-    <div id="status"></div>
-    <label>FEN:</label>
-    <div id="fen"></div>
-    <label>PGN:</label>
-    <div id="pgn"></div>
+      <div class="column">
+        <div id="chat">
+          <h3>Chat</h3>
+          <div id="messagesContainer"></div>
+          <input id='chatInput' type='text'>
+          <input value="Send" id='chatSend' type='button' onclick='handleChatSend()'>
+        </div>
+      </div>
+      
+    </div>
 
     <script src="chess.js"></script>
-  </div>
 </body>

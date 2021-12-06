@@ -51,6 +51,21 @@ function handleJoinGameButton() {
     destroyJoinPanel();
 }
 
+async function handleChatSend() {
+    const chatbox = document.querySelector('#chatInput');
+
+    if (!chatbox.value || chatbox.value == "") 
+        return;
+
+    debugger
+    const response = await sendChatMessageRequest(chatbox.value);
+    if (response.status != 200) {
+        return alert(response.statusText)
+    }
+
+    chatbox.value = "";
+}
+
 async function handleNewGame(asWhite=true) {
     storePlayerName(getPlayerName());
     
@@ -63,6 +78,28 @@ async function handleNewGame(asWhite=true) {
     updateStatus()
 
     destroyJoinPanel();
+}
+
+function clearMessages() {
+    const container = document.querySelector('#messagesContainer');
+
+    while (container.firstChild)
+        container.removeChild(container.firstChild)
+}
+
+function addMessage(text) {
+    const container = document.querySelector('#messagesContainer');
+
+    const textelement     = document.createElement('p');
+    textelement.innerHTML = text;
+
+    container.appendChild(textelement);
+}
+
+function displayChatMessages(chatMessages) {
+    clearMessages()
+    for (let message of chatMessages)
+        addMessage(message);
 }
 ///
 
@@ -105,6 +142,24 @@ async function sendCreateGameRequest(whitePlayer=true) {
 
     const data = await response.json();
     return data;
+}
+
+async function sendChatMessageRequest(message) {
+    const payload = `gameID=${gameID}&playerName=${player_name}&message=${message}`;
+    const response = await fetch('/game/chat', {
+        method: 'POST',
+        cors: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: payload
+    });
+
+    return await response;
 }
 
 ///

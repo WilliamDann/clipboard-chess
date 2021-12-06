@@ -27,6 +27,8 @@ async function fetchPosition() {
   document.querySelector('#whitePlayer').innerHTML = 'White Player: ' + position.whitePlayer;
   document.querySelector('#blackPlayer').innerHTML = 'Black Player: ' + position.blackPlayer;
 
+  displayChatMessages(position.chat);
+
   return position;
 }
 

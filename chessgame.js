@@ -4,6 +4,8 @@ class Chessgame {
         this.fenString = fenString;
         this.whitePlayer = whitePlayer;
         this.blackPlayer = blackPlayer;
+
+        this.chat = [];
     }
 }
 module.exports.Chessgame = Chessgame;

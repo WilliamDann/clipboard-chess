@@ -134,4 +134,37 @@ module.exports = (app, db) => {
         res.status(200);
         res.send("Move made");
     });
+
+    app.post('/game/chat', (req, res) => {
+        if (!req.body.gameID) {
+            res.status(400);
+            return res.send("No gameID specified");
+        }
+
+        if (!req.body.playerName) {
+            res.status(400);
+            return res.send("No playerName specified")
+        }
+
+        const game = db.games[req.body.gameID];
+
+        if (!game) {
+            res.status(404);
+            return res.send("gameID not found");
+        }
+
+        if (!(req.body.playerName == game.whitePlayer || req.body.playerName == game.blackPlayer)) {
+            res.status(400);
+            return res.send("You are not allowed to chat in this game");
+        }
+
+        if (!req.body.message) {
+            res.status(400);
+            return res.send("No message body specified");
+        }
+
+        game.chat.push(`${req.body.playerName} : ${req.body.message}`)
+        res.status(200);
+        res.send("Message posted");
+    });
 }
