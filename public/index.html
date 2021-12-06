@@ -34,7 +34,6 @@
     <h3>User Info</h3>
     <label>Set Name: </label>
     <input id="name_input">
-    <button onclick="player_name=document.querySelector('#name_input').value">Set Name</button>
 
     <br>
     <h3>Join a Game</h3>
@@ -46,8 +45,6 @@
       <input type = "submit" value = "Send">
       </form>
       <br>
-
-      <h3>Create a Game</h3>
       <button onclick="handleNewGame(true)">New Game as White</button>
       <button onclick="handleNewGame(false)">New Game as Black</button>
 
@@ -59,8 +56,7 @@
     
     <script src="page.js"></script>
 
-  <div id="boardChess"> </div>
-
+  <div id="boardChess">
     <div id="blackPlayer"></div>
       <div id="myBoard" style="width: 400px"></div>
       <div id="whitePlayer"></div><br>

@@ -13,7 +13,7 @@ function setGameID(gid) {
 }
 
 // TODO use cache funcs
-function setPlayerName(name, cache=false) {
+function storePlayerName(name, cache=false) {
     if (name.length == 0) 
         return false;
 
@@ -23,7 +23,7 @@ function setPlayerName(name, cache=false) {
 
 // TODO use cache funcs
 function getPlayerName(useCache=false) {
-    return player_name;
+    return document.querySelector('#name_input').value;
 }
 
 function destroyJoinPanel() {
@@ -40,8 +40,10 @@ function handleJoinGameButton() {
 
     if (!setGameID(joinPanel.querySelector('#join_code').value))
         return alert('Invalid gameID');
-    if (!player_name) 
+    if (getPlayerName().length == 0) 
         return alert ("Please enter a name first.");
+
+    storePlayerName(getPlayerName());
 
     if (!sendJoinGameRequest())
         return alert('Failed to join game!');
@@ -50,6 +52,8 @@ function handleJoinGameButton() {
 }
 
 async function handleNewGame(asWhite=true) {
+    storePlayerName(getPlayerName());
+    
     if (!player_name) 
       return alert("Please enter a name first");
 
