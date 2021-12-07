@@ -51,10 +51,10 @@
   <form name="getName" onsubmit="return getUserName()" method="post">
     <label for="user_name"> Player name: </label>
     <input type="text" name="PlayerName" id="user_name">
-    <input type="submit" value="Send" onclick="getUserName()">
+    <input type="submit" value="Send" >
   </form>
   <script>
-    //The function and the form above is a simple way to get the user name. It is not linked to anything yet. So, when you click 'send' the page breaks.
+    
     function getUserName() {
       let user_name = document.forms["getName"]["userName"].value;
       if (user_name == "") {
