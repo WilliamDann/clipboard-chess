@@ -6,10 +6,10 @@ var $fen = $('#fen')
 var $pgn = $('#pgn')
 
 var player_name = null
-var gameID      = null
+var gameID = null
 
 async function fetchPosition() {
-  const response = await fetch('/game?gameID='+gameID, {
+  const response = await fetch('/game?gameID=' + gameID, {
     method: 'GET',
     cors: 'cors',
     cache: 'no-cache',
@@ -32,13 +32,13 @@ async function fetchPosition() {
   return position;
 }
 
-async function setPlayers(white=null, black=null) {
-  let payload = 'gameID='+gameID;
+async function setPlayers(white = null, black = null) {
+  let payload = 'gameID=' + gameID;
   if (white) {
-    payload += '&whitePlayer='+white
+    payload += '&whitePlayer=' + white
   }
   if (black) {
-    payload += '&blackPlayer='+black;
+    payload += '&blackPlayer=' + black;
   }
 
   const response = await fetch('/game', {
@@ -67,16 +67,16 @@ async function updatePosition(move) {
     },
     redirect: 'follow',
     referrerPolicy: 'no-referrer',
-    body: "gameID="+encodeURIComponent(gameID)+"&move="+encodeURIComponent(move)+"&player="+player_name
+    body: "gameID=" + encodeURIComponent(gameID) + "&move=" + encodeURIComponent(move) + "&player=" + player_name
   });
 }
 
-function onDrop (source, target) {
+function onDrop(source, target) {
   updatePosition(`${source}${target}`)
   updateStatus()
 }
 
-function updateStatus () {
+function updateStatus() {
   var status = ''
 
   var moveColor = 'White'

@@ -5,25 +5,30 @@ html, body {
 }
 
 body {
-    font: 62.5% 'Source Sans Pro', sans-serif;
-    color: #000;
-    background: #fff;
+    font-family: 'Permanent Marker', cursive;
+    background: #000;
+    color: #fff;
 }
 
 h1 {
-    font-size: 2.5em;
+    font-size: 9.5em;
     margin-bottom: 0;
+}
+h3 {
+    font-size: 1.5em;
 }
 h4 {
     display: inline;
 }
-
+p {
+    font-size: 1em;
+}
 #title {
-    font-size: 1.5em;
+    font-size: 2.5em;
 }
 
 #boardChess {
-    margin-top: 60px;
+    margin-top: 30px;
     margin-left: 10px;
     margin-right: 10px;
 
@@ -33,7 +38,7 @@ h4 {
 }
 
 #chat {
-    border: 1px solid black;
+    border: 1px solid rgb(202, 197, 197);
 }
 
 /* Create two equal columns that floats next to each other */
@@ -47,4 +52,7 @@ h4 {
     content: "";
     display: table;
     clear: both;
+}
+footer {
+    text-align: center;
 }
