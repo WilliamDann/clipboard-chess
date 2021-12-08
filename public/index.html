@@ -27,23 +27,27 @@
 <body>
   <h1 id="title">JS Project - Multiplayer Chess Server</h1>
   <p id="groupname">by William Dann and Claudia Souza</p>
-  <h4>GameID: </h4><h4 id="game_id"></h4>
-
+  
+  <br>
+  
   <div id="info_panel">
+    <h3>User Info</h3>
+    <label>Set Name: </label>
+    <input id="name_input">
 
     <br>
     <h3>Join a Game</h3>
-    <form id="info_form" name = "getName">
-      <label for = "user_name"> Player name: </label>
-      <input type = "text" name = "PlayerName" id = "user_name"><br>
+
+
+    <form id="info_form" name = "getName" onsubmit="handleJoinGameButton();">
       <label for = "join_code"> GameID: </label>
       <input type = "text" name = "JoinCode" id = "join_code">
       <input type = "submit" value = "Send">
       </form>
       <br>
+      <button onclick="handleNewGame(true)">New Game as White</button>
+      <button onclick="handleNewGame(false)">New Game as Black</button>
 
-      <h3>Create a Game</h3>
-      <button onclick="handleNewGame()">New Game</button>
       <br>
 
     </div>
@@ -75,6 +79,4 @@
     <div id="pgn"></div>
 
     <script src="chess.js"></script>
-  </gameArea>
-
 </body>

@@ -7,6 +7,11 @@ module.exports = (app, db) => {
 
         db.games[id] = new Chessgame('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
 
+        if (req.body.whitePlayer)
+            db.games[id].whitePlayer = req.body.whitePlayer
+        if (req.body.blackPlayer)
+            db.games[id].blackPlayer = req.body.blackPlayer
+
         res.status(200);
         res.send({id: id});
     });
@@ -77,6 +82,11 @@ module.exports = (app, db) => {
             return;
         }
 
+        if (!req.body.player) {
+            res.status(400);
+            res.send("No player was specified")
+        }
+
         if (!req.body.move) {
             res.status(400);
             res.send("No move specified");
@@ -90,17 +100,71 @@ module.exports = (app, db) => {
         }
 
         const chessgame = Chess(db.games[req.body.gameID].fenString);
-        const result    = chessgame.move(decodeURIComponent(req.body.move), {sloppy: true});
+        if (chessgame.turn() == 'w') {
+            if (db.games[req.body.gameID].whitePlayer != req.body.player) {
+                res.status(400);
+                return res.send("It is not your turn");
+            }
+        } else {
+            if (db.games[req.body.gameID].blackPlayer != req.body.player) {
+                res.status(400);
+                return res.send("It is not your turn");
+            }
+        }
 
+        const moves     = chessgame.moves();
+        const result    = chessgame.move(decodeURIComponent(req.body.move), {sloppy: true});
+        
+        
         if (!result) {
             res.status(400);
             res.send("Invalid move");
             return;
+        }
+        
+        // .move is allowing moves with check??
+        if (moves.indexOf(result.san) == -1) {
+            chessgame.undo();
+            res.status(400);
+            return res.send("Invalid move");
         }
 
         db.games[req.body.gameID].fenString = chessgame.fen()
 
         res.status(200);
         res.send("Move made");
+    });
+
+    app.post('/game/chat', (req, res) => {
+        if (!req.body.gameID) {
+            res.status(400);
+            return res.send("No gameID specified");
+        }
+
+        if (!req.body.playerName) {
+            res.status(400);
+            return res.send("No playerName specified")
+        }
+
+        const game = db.games[req.body.gameID];
+
+        if (!game) {
+            res.status(404);
+            return res.send("gameID not found");
+        }
+
+        if (!(req.body.playerName == game.whitePlayer || req.body.playerName == game.blackPlayer)) {
+            res.status(400);
+            return res.send("You are not allowed to chat in this game");
+        }
+
+        if (!req.body.message) {
+            res.status(400);
+            return res.send("No message body specified");
+        }
+
+        game.chat.push(`${req.body.playerName} : ${req.body.message}`)
+        res.status(200);
+        res.send("Message posted");
     });
 }

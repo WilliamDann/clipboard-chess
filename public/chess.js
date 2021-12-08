@@ -23,6 +23,37 @@ async function fetchPosition() {
 
   const position = await response.json();
   board.position(position.fenString);
+
+  document.querySelector('#whitePlayer').innerHTML = 'White Player: ' + position.whitePlayer;
+  document.querySelector('#blackPlayer').innerHTML = 'Black Player: ' + position.blackPlayer;
+
+  displayChatMessages(position.chat);
+
+  return position;
+}
+
+async function setPlayers(white=null, black=null) {
+  let payload = 'gameID='+gameID;
+  if (white) {
+    payload += '&whitePlayer='+white
+  }
+  if (black) {
+    payload += '&blackPlayer='+black;
+  }
+
+  const response = await fetch('/game', {
+    method: 'PUT',
+    cors: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+    body: payload
+  });
+  return response;
 }
 
 async function updatePosition(move) {
@@ -36,7 +67,7 @@ async function updatePosition(move) {
     },
     redirect: 'follow',
     referrerPolicy: 'no-referrer',
-    body: "gameID="+encodeURIComponent(gameID)+"&move="+encodeURIComponent(move)
+    body: "gameID="+encodeURIComponent(gameID)+"&move="+encodeURIComponent(move)+"&player="+player_name
   });
 }
 

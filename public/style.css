@@ -1,11 +1,11 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
 html, body {
     margin: 10px 2em;
     padding: 0;
 }
 
 body {
-    font: 62.5% Verdana, Helvetica, Arial, sans-serif;
+    font: 62.5% 'Source Sans Pro', sans-serif;
     color: #000;
     background: #fff;
 }
@@ -26,5 +26,25 @@ h4 {
     margin-top: 60px;
     margin-left: 10px;
     margin-right: 10px;
+
+}
+#boardChess div {
     text-align: right;
+}
+
+#chat {
+    border: 1px solid black;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+    float: left;
+    width: 50%;
+}
+  
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
 }
