@@ -53,25 +53,12 @@
 
   </div>
 
-  <form name="getName" onsubmit="return getUserName()" method="post">
-    <label for="user_name"> Player name: </label>
-    <input type="text" name="PlayerName" id="user_name">
-    <input type="submit" value="Send">
-  </form>
-  <script>
-
-    function getUserName() {
-      let user_name = document.forms["getName"]["userName"].value;
-      if (user_name == "") {
-        document.getElementById("message").innerHTML = "Please enter your name. ";
-        return false;
-      }
-      else document.getElementById("message").innerHTML = "Hello, " + user_name + "!";
-      return true;
-    }
-  </script>
   <gameArea id="boardChess">
+    GameID: <p id="game_id" style='display: inline;'></p>
+    <p id="whitePlayer"></p>
     <div id="myBoard" style="width: 400px"></div>
+    <p id="blackPlayer"></p>
+
     <label>Status:</label>
     <div id="status"></div>
     <label>FEN:</label>
@@ -81,6 +68,16 @@
 
     <script src="chess.js"></script>
   </gameArea>
+
+  <div class='chat'>
+    Chat:
+    <div id='messagesContainer'></div>
+
+    <input type='text' id='chatInput'>
+    <input type='button' value='send' onclick='handleChatSend()'>
+  </div>
+
+  <script src="page.js"></script>
 </body>
 </br>
 </br>
