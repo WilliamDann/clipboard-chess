@@ -1,5 +1,10 @@
 const GID_LENGTH = 6;
 
+// mobile use
+document.querySelector('boardChess').addEventListener('touchmove', e => {
+    e.preventDefault();
+})
+
 /// UTIL FUNCS
 
 function setGameID(gid) {
