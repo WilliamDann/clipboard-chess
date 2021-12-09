@@ -1,6 +1,8 @@
 const GID_LENGTH = 6;
 
 /// UTIL FUNCS
+document.addEventListener('touchstart', function(e) {e.preventDefault()}, false);
+document.addEventListener('touchmove', function(e) {e.preventDefault()}, false);
 
 function setGameID(gid) {
     if (gid.length != GID_LENGTH)
