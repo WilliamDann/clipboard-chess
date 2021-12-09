@@ -1,10 +1,5 @@
 const GID_LENGTH = 6;
 
-// mobile use
-document.addEventListener('touchmove', e => {
-    e.preventDefault();
-})
-
 /// UTIL FUNCS
 
 function setGameID(gid) {

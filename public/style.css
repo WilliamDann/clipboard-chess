@@ -32,6 +32,7 @@ p {
     margin-left: 10px;
     margin-right: 10px;
 
+    touch-action: none;
 }
 #boardChess div {
     text-align: right;
