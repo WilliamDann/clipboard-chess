@@ -1,0 +1,2 @@
+☐ BUG: the server does not reject moves that are illegal because they put the king in check
+☐ Right now the server does not care who submits a move, so long as the move is legal. It should instead assign one player as white and one as black and only accept the appropiate moves from the apropiate sides

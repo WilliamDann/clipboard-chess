@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+html, body {
+    margin: 10px 2em;
+    padding: 0;
+}
+
+body {
+    font-family: 'Permanent Marker', cursive;
+    background: #000;
+    color: #fff;
+}
+
+h1 {
+    font-size: 9.5em;
+    margin-bottom: 0;
+}
+h3 {
+    font-size: 1.5em;
+}
+h4 {
+    display: inline;
+}
+p {
+    font-size: 1em;
+}
+#title {
+    font-size: 2.5em;
+}
+
+#boardChess {
+    margin-top: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+}
+#boardChess div {
+    text-align: right;
+}
+
+#chat {
+    border: 1px solid rgb(202, 197, 197);
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+    float: left;
+    width: 50%;
+}
+  
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+footer {
+    text-align: center;
+}
+
+.chat {
+    position: absolute;
+    top: 100px;
+    right: 100px;
+    border: 1px solid black;
+}
