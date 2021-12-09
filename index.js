@@ -8,4 +8,4 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // TODO save database object
 require('./routes/all')(app, { games: {} })
 
-app.listen(60, () => "Running")
+app.listen(process.env.PORT, () => "Running on " + process.env.PORT)
