@@ -77,8 +77,6 @@ async function handleNewGame(asWhite = true) {
     const gameData = await sendCreateGameRequest(asWhite);
     gameID = gameData.id;
 
-    updateStatus()
-
     destroyJoinPanel();
 }
 
