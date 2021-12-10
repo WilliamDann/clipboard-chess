@@ -1,7 +1,12 @@
-const express = require('express');
+const express    = require('express');
 const bodyParser = require('body-parser');
+const http       = require('http');
+const {Server}     = require('socket.io');
 
-const app     = express();
+const app    = express();
+const server = http.createServer(app); 
+const io     = new Server(server);
+
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -27,6 +32,13 @@ if (args['port'])
 
 
 // TODO save database object
-require('./routes/all')(app, { games: {} })
+const db = { games: {} }
 
-app.listen(PORT, () => console.log("Running on port" + PORT))
+// web socket server
+io.on('connection', (sock) => {
+    console.log('connection')
+
+    require('./src/websocks')(sock, db);
+})
+
+server.listen(PORT, () => console.log("Running on port " + PORT))
