@@ -117,6 +117,7 @@ var config = {
   onDrop: onDrop,
 }
 board = Chessboard('myBoard', config)
+$(window).resize(board.resize)
 
 // updateStatus(game)
 
