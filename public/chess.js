@@ -29,7 +29,7 @@ async function fetchPosition() {
 
   displayChatMessages(position.chat);
 
-  updateStatus(new Game(position.fenString))
+  updateStatus(new Chess(position.fenString))
 
   return position;
 }
