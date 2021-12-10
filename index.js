@@ -33,11 +33,12 @@ if (args['port'])
 
 // TODO save database object
 const db = { games: {} }
-require('./routes/all')(app, db)
 
-// ws
+// web socket server
 io.on('connection', (sock) => {
     console.log('connection')
+
+    require('./src/websocks')(sock, db);
 })
 
 server.listen(PORT, () => console.log("Running on port " + PORT))

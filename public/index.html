@@ -62,9 +62,9 @@
                    </tr>
                    <tr>
                        <td>
-                            <input type="button" value="Join" onclick="handleJoinGameButton()"><br>
-                            <button onclick="handleNewGame(true)">New Game as White</button><br>
-                            <button onclick="handleNewGame(false)">New Game as Black</button>
+                            <input type="button" value="Join" onclick="emitJoinGame(getGameID(), getPlayerName())"><br>
+                            <button onclick="emitCreateGame(gameID, getPlayerName(), true)">New Game as White</button><br>
+                            <button onclick="emitCreateGame(gameID, getPlayerName(), false)">New Game as Black</button>
                        </td>
                    </tr>
                </table>
@@ -72,7 +72,7 @@
 
             <div id="game_info" class="info">
                 <b>Game Info</b><br><br>
-                <p>GameID: </p> <p id="gameID"></p> <br>
+                <p>GameID: </p> <p id="gameIDDisplay"></p> <br>
                 <p>Status:</p> <p id="status"></p> <br>
                 <p>FEN:</p> <p id="fen"></p> <br>
                 <p>PGN:</p> <p id="pgn"></p> <br>

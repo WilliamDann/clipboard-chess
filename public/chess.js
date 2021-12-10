@@ -1,128 +1,73 @@
-// globals
-var board = null
-var game = new Chess()
-var $status = $('#status')
-var $fen = $('#fen')
-var $pgn = $('#pgn')
-
-var player_name = null
-var gameID = null
-
-async function fetchPosition() {
-  const response = await fetch('/game?gameID=' + gameID, {
-    method: 'GET',
-    cors: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer',
-  });
-
-  const position = await response.json();
-  board.position(position.fenString);
-
-  document.querySelector('#whitePlayer').innerHTML = 'White Player: ' + position.whitePlayer;
-  document.querySelector('#blackPlayer').innerHTML = 'Black Player: ' + position.blackPlayer;
-
-  displayChatMessages(position.chat);
-
-  updateStatus(new Chess(position.fenString))
-
-  return position;
-}
-
-async function setPlayers(white = null, black = null) {
-  let payload = 'gameID=' + gameID;
-  if (white) {
-    payload += '&whitePlayer=' + white
-  }
-  if (black) {
-    payload += '&blackPlayer=' + black;
-  }
-
-  const response = await fetch('/game', {
-    method: 'PUT',
-    cors: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer',
-    body: payload
-  });
-  return response;
-}
-
-async function updatePosition(move) {
-  const response = await fetch('/game/move', {
-    method: 'POST',
-    cors: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer',
-    body: "gameID=" + encodeURIComponent(gameID) + "&move=" + encodeURIComponent(move) + "&player=" + player_name
-  });
-}
+var board     = null
+var game      = new Chess()
+var playerName = null
+var gameID    = null
 
 function onDrop(source, target) {
-  updatePosition(`${source}${target}`)
+	emitMove(gameID, playerName, `${source}${target}`)
 }
 
-function updateStatus(game) {
-  var status = ''
+function updateStatus() {
+	var status = ''
+	
+	var moveColor = 'White'
+	if (game.turn() === 'b') {
+		moveColor = 'Black'
+	}
+	
+    if (game.in_checkmate()) {
+		status = 'Game over, ' + moveColor + ' is in checkmate.'
+	} else if (game.in_draw()) {
+		status = 'Game over, drawn position'
+	} else {
+		status = moveColor + ' to move'
+			if (game.in_check()) {
+			status += ', ' + moveColor + ' is in check'
+		}
+	}
+	
+	document.querySelector('#status').innerHTML = status
+	document.querySelector('#fen').innerHTML = game.fen();
+	// document.querySelector('#pgn').innerHTML = game.pgn().;
+	document.querySelector('#gameIDDisplay').innerHTML = gameID;
+}
+	
+function updateBoard(fen) {
+	game = new Chess(fen);
+	board.position(fen, true)
+}
 
-  var moveColor = 'White'
-  if (game.turn() === 'b') {
-    moveColor = 'Black'
-  }
+function updatePlayers(whitePlayer, blackPlayer) {
+    document.querySelector('#whitePlayer').value = whitePlayer;
+	document.querySelector('#blackPlayer').value = blackPlayer;
+}
 
-  // checkmate?
-  if (game.in_checkmate()) {
-    status = 'Game over, ' + moveColor + ' is in checkmate.'
-  }
+function clearChatElement() {
+    const element = document.querySelector('#messagesContainer')
 
-  // draw?
-  else if (game.in_draw()) {
-    status = 'Game over, drawn position'
-  }
+    while (element.firstChild)
+        element.removeChild(element.firstChild)
+}
 
-  // game still on
-  else {
-    status = moveColor + ' to move'
+function addChatMessage(text) {
+    const element = document.querySelector('#messagesContainer')
 
-    // check?
-    if (game.in_check()) {
-      status += ', ' + moveColor + ' is in check'
-    }
-  }
+    const p = document.createElement('p');
+    p.innerHTML = text;
 
-  $status.html(status)
-  document.querySelector('#fen').innerHTML = game.fen();
-  // document.querySelector('#pgn').innerHTML = game.pgn().;
-  document.querySelector('#gameID').innerHTML = gameID;
+    element.appendChild(p);
+}
+
+function updateChat(chatData) {
+    clearChatElement();
+    for (let message of chatData)
+        addChatMessage(message);
 }
 
 var config = {
-  draggable: true,
-  position: 'start',
-  onDrop: onDrop,
+	draggable: true,
+	position: 'start',
+	onDrop: onDrop,
 }
 board = Chessboard('myBoard', config)
 $(window).resize(board.resize)
-
-// updateStatus(game)
-
-setInterval(() => {
-  if (gameID) {
-    fetchPosition(gameID);
-  }
-}, 1000)
