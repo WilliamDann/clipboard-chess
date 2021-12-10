@@ -75,7 +75,6 @@ async function updatePosition(move) {
 
 function onDrop(source, target) {
   updatePosition(`${source}${target}`)
-  updateStatus()
 }
 
 function updateStatus(game) {
