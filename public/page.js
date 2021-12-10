@@ -1,4 +1,5 @@
 const GID_LENGTH = 6;
+const socket = io();
 
 /// UTIL FUNCS
 document.addEventListener('touchstart', function(e) {e.preventDefault()}, false);
