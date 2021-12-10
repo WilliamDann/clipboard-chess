@@ -108,7 +108,7 @@ function updateStatus(game) {
   $status.html(status)
   document.querySelector('#fen').innerHTML = game.fen();
   document.querySelector('#pgn').innerHTML = game.pgn()
-  document.querySelector('#game_id').innerHTML = gameID;
+  document.querySelector('#game_id').innerHTML = game.pgn();
 }
 
 var config = {
