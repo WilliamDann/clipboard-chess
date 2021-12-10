@@ -119,7 +119,7 @@ var config = {
 }
 board = Chessboard('myBoard', config)
 
-updateStatus()
+updateStatus(game)
 
 setInterval(() => {
   if (gameID) {
