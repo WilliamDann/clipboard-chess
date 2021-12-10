@@ -29,7 +29,7 @@ async function fetchPosition() {
 
   displayChatMessages(position.chat);
 
-  updateStatus()
+  updateStatus(new Game(position.fenString))
 
   return position;
 }
@@ -78,7 +78,7 @@ function onDrop(source, target) {
   updateStatus()
 }
 
-function updateStatus() {
+function updateStatus(game) {
   var status = ''
 
   var moveColor = 'White'
