@@ -1,86 +1,94 @@
 <!DOCTYPE html>
 
 <head>
-  <!-- chessjs requires jquery -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"
-    integrity="sha512-xRllwz2gdZciIB+AkEbeq+gVhX8VB8XsfqeFbUh+SzHlN96dEduwtTuVuc2u9EROlmW9+yhRlxjif66ORpsgVA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- chessjs requires jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"
+        integrity="sha512-xRllwz2gdZciIB+AkEbeq+gVhX8VB8XsfqeFbUh+SzHlN96dEduwtTuVuc2u9EROlmW9+yhRlxjif66ORpsgVA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-  <!-- chessboardjs -->
-  <link rel="stylesheet" href="chessboardjs/css/chessboard-1.0.0.min.css">
-  <script src="chessboardjs/js/chessboard-1.0.0.min.js"></script>
+    <!-- chessboardjs -->
+    <link rel="stylesheet" href="chessboardjs/css/chessboard-1.0.0.min.css">
+    <script src="chessboardjs/js/chessboard-1.0.0.min.js"></script>
 
-  <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Info -->
+    <title>Clip Chess</title>
 </head>
 
-<style type="text/css">
-  .highlight-white {
-    box-shadow: inset 0 0 3px 3px yellow;
-  }
-
-  .highlight-black {
-    box-shadow: inset 0 0 3px 3px blue;
-  }
-</style>
-
 <body>
-  <h1 id="title">JS Project - Multiplayer Chess Server</h1>
-  <p id="groupname">by William Dann and Claudia Souza</p>
+    <!-- Top Menu-->
+    <div class="topbar">
+        <p>Clipboard Chess</p>
+        <a>Home</a>
+        <a>Play</a>
+    </div>
 
+    <!-- Main Content Section -->
+    <div class="row">
+        <div class="column panel">
+            <p id="whitePlayer">White Player</p>
+            <div id="myBoard" style="width: 100%"></div>
+            <p id="blackPlayer">Black Player</p>
 
+            <!-- TODO board resize. It is in the chessboardjs docs iirc -->
+        </div>
 
-  <div id="info_panel">
-    <h3>User Info</h3>
-    <label>Set Name: </label>
-    <input id="name_input">
+        <div class="column panel">
+            <div id="join_info" class="info">
+                <b>Join Game</b>
+               <table>
+                   <tr>
+                       <td align="right">
+                           <p>Player Name:</p>
+                       </td>
+                       <td align="left">
+                           <input id="playerName" type="text">
+                       </td>
+                   </tr>
 
-    <br>
-    <h3>Join a Game</h3>
+                   <tr>
+                       <td align="right">
+                           <p>GameID: </p>
+                       </td>
 
+                       <td align="left">
+                           <input id="gameID" type="text">
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>
+                            <input type="button" value="Join" onclick="handleJoinGameButton()"><br>
+                            <button onclick="handleNewGame(true)">New Game as White</button><br>
+                            <button onclick="handleNewGame(false)">New Game as Black</button>
+                       </td>
+                   </tr>
+               </table>
+            </div><br>
 
-    <form id="info_form" name="getName" onsubmit="handleJoinGameButton();">
-      <label for="join_code"> GameID: </label>
-      <input type="text" name="JoinCode" id="join_code">
-      <input type="submit" value="Send">
-    </form>
-    <br>
-    <button onclick="handleNewGame(true)">New Game as White</button></br>
-    </br>
-    <button onclick="handleNewGame(false)">New Game as Black</button></br>
+            <div id="game_info" class="info">
+                <b>Game Info</b><br><br>
+                <p>GameID: </p> <p id="gameID"></p> <br>
+                <p>Status:</p> <p id="status"></p> <br>
+                <p>FEN:</p> <p id="fen"></p> <br>
+                <p>PGN:</p> <p id="pgn"></p> <br>
+            </div><br>
 
-    <br>
+            <div id="chat" class="info">
+                <b>Chat</b>
+                <div id="messagesContainer">
 
-  </div>
+                </div>
 
-  <gameArea id="boardChess">
-    GameID: <p id="game_id" style='display: inline;'></p>
-    <p id="whitePlayer"></p>
-    <div id="myBoard" style="width: 400px"></div>
-    <p id="blackPlayer"></p>
+                <br><br>
+                <input type="text" id="chatInput">
+                <input type="button" value="Send" onclick="handleChatSend()">
+            </div>
+        </div>
+    </div>
 
-    <label>Status:</label>
-    <div id="status"></div>
-    <label>FEN:</label>
-    <div id="fen"></div>
-    <label>PGN:</label>
-    <div id="pgn"></div>
-
+    <!-- Scritps -->
+    <script src="page.js"></script>
     <script src="chess.js"></script>
-  </gameArea>
-
-  <div class='chat'>
-    Chat:
-    <div id='messagesContainer'></div>
-
-    <input type='text' id='chatInput'>
-    <input type='button' value='send' onclick='handleChatSend()'>
-  </div>
-
-  <script src="page.js"></script>
 </body>
-</br>
-</br>
-<footer>
-  JavaScript - Fall Quarter @2021
-</footer>

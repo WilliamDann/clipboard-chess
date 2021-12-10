@@ -1,66 +1,65 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
-html, body {
-    margin: 10px 2em;
-    padding: 0;
+
+* {
+    font-family: 'Source Sans Pro', cursive;
+    padding: 0px;
+    margin: 0px;
 }
 
 body {
-    font-family: 'Source Sans Pro', cursive;
-    background: #000;
-    color: #fff;
+    background-color: #424242;
+    color: #ddd;
 }
 
-h1 {
-    font-size: 9.5em;
-    margin-bottom: 0;
-}
-h3 {
-    font-size: 1.5em;
-}
-h4 {
-    display: inline;
-}
-p {
-    font-size: 1em;
-}
-#title {
-    font-size: 2.5em;
+/* Top Bar */
+.topbar {
+    overflow: hidden;
+    background-color: #212121;
 }
 
-#boardChess {
-    margin-top: 30px;
-    margin-left: 10px;
-    margin-right: 10px;
-
-    touch-action: none;
-}
-#boardChess div {
-    text-align: right;
+.topbar * {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
 }
 
-#chat {
-    border: 1px solid rgb(202, 197, 197);
+.topbar a:hover {
+    background-color: #ddd;
+    color: black;
 }
 
-/* Create two equal columns that floats next to each other */
+.topbar a:active {
+    background-color: #04aa94;
+    color: white;
+}
+/* */
+
+/* Column Layout */
 .column {
     float: left;
     width: 50%;
 }
   
-/* Clear floats after the columns */
 .row:after {
     content: "";
     display: table;
     clear: both;
 }
-footer {
-    text-align: center;
+
+.info {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 10px;
 }
 
-.chat {
-    position: absolute;
-    top: 100px;
-    right: 100px;
-    border: 1px solid black;
+.panel p {
+    padding: 10px;
 }
+
+panel form  { display: table;      }
+panel p     { display: table-row;  }
+panel label { display: table-cell; }
+panel input { display: table-cell; }
+/* */
