@@ -27,12 +27,9 @@ async function fetchPosition() {
   document.querySelector('#whitePlayer').innerHTML = 'White Player: ' + position.whitePlayer;
   document.querySelector('#blackPlayer').innerHTML = 'Black Player: ' + position.blackPlayer;
 
-  $status.html(status)
-  document.querySelector('#fen').innerHTML = game.fen();
-  document.querySelector('#pgn').innerHTML = game.pgn()
-  document.querySelector('#game_id').innerHTML = gameID;
-
   displayChatMessages(position.chat);
+
+  updateStatus()
 
   return position;
 }
@@ -108,6 +105,11 @@ function updateStatus() {
       status += ', ' + moveColor + ' is in check'
     }
   }
+
+  $status.html(status)
+  document.querySelector('#fen').innerHTML = game.fen();
+  document.querySelector('#pgn').innerHTML = game.pgn()
+  document.querySelector('#game_id').innerHTML = gameID;
 }
 
 var config = {
