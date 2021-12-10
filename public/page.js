@@ -25,11 +25,11 @@ function storePlayerName(name, cache = false) {
 
 // TODO use cache funcs
 function getPlayerName(useCache = false) {
-    return document.querySelector('#name_input').value;
+    return document.querySelector('#playerName').value;
 }
 
 function destroyJoinPanel() {
-    const info = document.querySelector("#info_panel");
+    const info = document.querySelector("#join_info");
 
     if (!info)
         return;
@@ -38,13 +38,12 @@ function destroyJoinPanel() {
 }
 
 function handleJoinGameButton() {
-    const joinPanel = document.querySelector("#info_panel");
-
-    if (!setGameID(joinPanel.querySelector('#join_code').value))
+    if (!document.querySelector("#gameID").value)
         return alert('Invalid gameID');
     if (getPlayerName().length == 0)
         return alert("Please enter a name first.");
 
+    setGameID(document.querySelector("#gameID").value)
     storePlayerName(getPlayerName());
 
     if (!sendJoinGameRequest())

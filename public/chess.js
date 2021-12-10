@@ -108,7 +108,7 @@ function updateStatus(game) {
   $status.html(status)
   document.querySelector('#fen').innerHTML = game.fen();
   // document.querySelector('#pgn').innerHTML = game.pgn().;
-  document.querySelector('#game_id').innerHTML = gameID;
+  document.querySelector('#gameID').innerHTML = gameID;
 }
 
 var config = {
@@ -118,7 +118,7 @@ var config = {
 }
 board = Chessboard('myBoard', config)
 
-updateStatus(game)
+// updateStatus(game)
 
 setInterval(() => {
   if (gameID) {
