@@ -17,6 +17,10 @@ function emitUpdate(client, game) {
     client.emit('update', JSON.stringify(payload));
 }
 
+function emitError(client, message) {
+    client.emit('error', message)
+}
+
 module.exports = (socket, db) => {
     socket.on('create game', message => {
         const data = JSON.parse(message);
@@ -25,7 +29,7 @@ module.exports = (socket, db) => {
         if (!data.gameID)
             data.gameID = id()
         if (!data.playerName)
-            return; // TODO error handling
+            return emitError(socket, "No playerName in request")
         
         if (data.white)
             obj.whitePlayer = data.playerName;
@@ -43,12 +47,12 @@ module.exports = (socket, db) => {
         const data = JSON.parse(message);
         
         if (!data.gameID)
-            return; // TODO error handling
+            return emitError(socket, "No gameID in request")
         if (!data.playerName)
-            return // TODO error handling
+            return emitError(socket, "No playerName in request")
 
         if (!db.games[data.gameID])
-            return; // TOOD error handling
+            return emitError(socket, `Game ${data.gameID} not found`)
 
         if (!db.games[data.gameID].whitePlayer) {
             db.games[data.gameID].whitePlayer = data.playerName
@@ -72,42 +76,52 @@ module.exports = (socket, db) => {
             return;
         }
 
-        return; // TODO error handling
+        return emitError(socket, 'Game is full')
+    });
+
+    socket.on('update game', message => {
+        const data = JSON.parse(message);
+
+        if (!data.gameID)
+            return emitError(socket, 'No gameID in request');
+        if (!db.games[data.gameID])
+            return emitError(socket, `Game ${data.gameID} was not found`)
+
+        emitUpdate(socket, db.games[data.gameID]);
     });
 
     socket.on('move', message => {
         const data = JSON.parse(message);
 
         if (!data.gameID)
-            return; // TOOD error handling
+            return emitError(socket, 'No gameID in request')
         if (!data.playerName)
-            return; // TODO error handling
+            return emitError(socket, 'No playerName in request')
         if (!data.move)
-            return // TODO error handling
+            return emitError(socket, 'No move in request')
 
         if (!db.games[data.gameID])
-            return; // TODO error handling
+            return emitError(socket, `Game ${data.gameID} was not found`)
 
         const board  = new Chess(db.games[data.gameID].fenString);
         const legals = board.moves();
 
         if (board.turn() == 'w') {
             if (data.playerName != db.games[data.gameID].whitePlayer)
-                return; // TODO error handling
+                return emitError(socket, `${data.playerName} is not allowed to move now`)
         } else {
             if (data.playerName != db.games[data.gameID].blackPlayer)
-                return; // TODO error handling
+                return emitError(socket, `${data.playerName} is not allowed to move now`)
         }
 
         const result = board.move(data.move, {sloppy: true})
 
-
         if (!result)
-            return; // TODO error handling
+            return emitError(socket, 'Illegal move')
 
         // .move allows moves into check??
         if (legals.indexOf(result.san) == -1)
-            return; // TODO error handling
+            return emitError(socket, 'Illegal move')
 
         db.games[data.gameID].fenString = board.fen();
 

@@ -61,6 +61,10 @@ function emitJoinGame(gameID, _playerName) {
     setPanelVisibility('#chat', 'visible');
 }
 
+function emitUpdate(gameID) {
+    sock.emit('update game', JSON.stringify({ gameID: gameID }) );
+}
+
 sock.on('update', message => {
     const data = JSON.parse(message);
 
@@ -71,4 +75,9 @@ sock.on('update', message => {
 
     updatePlayers(data.whitePlayer, data.blackPlayer);
     updateChat(data.chat);
+});
+
+sock.on('error', message => {
+    console.error(`Websocket Error: ${message}`);
+    emitUpdate(gameID);
 });
