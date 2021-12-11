@@ -36,8 +36,6 @@ const db = { games: {} }
 
 // web socket server
 io.on('connection', (sock) => {
-    console.log('connection')
-
     require('./src/websocks')(sock, db);
 })
 
