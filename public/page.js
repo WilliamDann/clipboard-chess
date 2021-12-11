@@ -27,18 +27,26 @@ function handleUseClockClicked() {
         element.disabled = !element.disabled;
 }
 
-function emitCreateGame(gameID, _playerName, white=true) {
-    playerName = _playerName;
+function emitCreateGame() {
+    const payload = {
+        playerName     : document.querySelector('#newGamePlayerName').value,
+        useClock       : document.querySelector("#useClock").checked,
+        
+        tcMin          : document.querySelector('#tcMin').value,
+        tcSec          : document.querySelector("#tcSec").value,
+        tcIncrementMin : document.querySelector('#tcIncrementMin').value,
+        tcIncrementSec : document.querySelector('#tcIncrementSec').value,
+        tcDelayMin     : document.querySelector('#tcDelayMin').value,
+        tcDelaySec     : document.querySelector('#tcDelaySec').value,
 
-    const payload = {}
-
-    payload.gameID     = gameID;
-    payload.playerName = _playerName;
-    payload.white      = white;
+        sideToPlay     : document.querySelector('#sideToPlay').value
+    }
 
     sock.emit('create game', JSON.stringify(payload));
 
     destroyPanel('#join_info');
+    destroyPanel('#create_info');
+
     setPanelVisibility('#game_info', 'visible');
     setPanelVisibility('#chat', 'visible');
 }
@@ -86,5 +94,10 @@ sock.on('update', message => {
 
 sock.on('error', message => {
     console.error(`Websocket Error: ${message}`);
+
+    // TODO better recursion prevention
+    if (message == "No gameID in request") 
+        return;
+
     emitUpdate(gameID);
 });

@@ -25,16 +25,59 @@ module.exports = (socket, db) => {
     socket.on('create game', message => {
         const data = JSON.parse(message);
         const obj  = blankGame()
-        
+
         if (!data.gameID)
             data.gameID = id()
         if (!data.playerName)
             return emitError(socket, "No playerName in request")
-        
-        if (data.white)
+        if (!data.sideToPlay || data.sideToPlay == 'Random') {
+            data.sideToPlay = Math.random() >= 0.5 ? 'White' : 'Black'
+        }
+
+        if (data.sideToPlay == "White")
             obj.whitePlayer = data.playerName;
         else
             obj.blackPlayer = data.playerName;
+
+        if (data.useClock) {
+            let time = 0;
+
+            const tcMin = parseInt(data.tcMin);
+            const tcSec = parseInt(data.tcSec)
+
+            if (tcMin == NaN)
+                return emitError(socket, "tcMin was invalid")
+            if (tcSec == NaN)
+                return emitError(socket, "tcMin was invalid")
+            
+            time += tcMin*60;
+            time += tcSec;
+
+            obj.whiteTime = time;
+            obj.blackTime   = time;
+
+            const incMin = parseInt(data.tcIncrementMin);
+            const incSec = parseInt(data.tcIncrementSec)
+            if (incMin !== NaN && incSec !== NaN) {
+                let inc = 0;
+
+                inc += incMin*60;
+                inc += incSec;
+
+                obj.increment = inc;
+            }
+
+            const delayMin = parseInt(data.tcDelayMin);
+            const delaySec = parseInt(data.tcDelaySec)
+            if (delayMin !== NaN && delaySec !== NaN) {
+                let delay = 0;
+
+                delay += delayMin*60;
+                delay += delaySec;
+
+                obj.increment = delay;
+            }
+        }
 
         socks.set(data.gameID, [socket])
         obj.gameID = data.gameID;
