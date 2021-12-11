@@ -8,6 +8,18 @@ function getGameID() {
     return document.querySelector("#gameID").value;
 }
 
+function destroyPanel(id) {
+    const panel = document.querySelector(id);
+
+    panel.parentElement.removeChild(panel);
+}
+
+function setPanelVisibility(id, to=true) {
+    const panel = document.querySelector(id)
+
+    panel.style.visibility = to;
+}
+
 function emitCreateGame(gameID, _playerName, white=true) {
     playerName = _playerName;
 
@@ -18,6 +30,10 @@ function emitCreateGame(gameID, _playerName, white=true) {
     payload.white      = white;
 
     sock.emit('create game', JSON.stringify(payload));
+
+    destroyPanel('#join_info');
+    setPanelVisibility('#game_info', 'visible');
+    setPanelVisibility('#chat', 'visible');
 }
 
 function emitMove(gameID, playerName, move) {
@@ -38,7 +54,11 @@ function emitJoinGame(gameID, _playerName) {
         playerName: playerName
     }
 
-    sock.emit('join game', JSON.stringify(payload))
+    sock.emit('join game', JSON.stringify(payload));
+
+    destroyPanel('#join_info');
+    setPanelVisibility('#game_info', 'visible');
+    setPanelVisibility('#chat', 'visible');
 }
 
 sock.on('update', message => {
