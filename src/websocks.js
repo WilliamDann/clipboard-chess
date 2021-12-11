@@ -28,9 +28,9 @@ module.exports = (socket, db) => {
             return; // TODO error handling
         
         if (data.white)
-            obj.whitePlayer = data.whitePlayer;
+            obj.whitePlayer = data.playerName;
         else
-            obj.blackPlayer = data.blackPlayer;
+            obj.blackPlayer = data.playerName;
 
         socks.set(data.gameID, [socket])
         obj.gameID = data.gameID;

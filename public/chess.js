@@ -46,8 +46,8 @@ function updateBoard(fen) {
 }
 
 function updatePlayers(whitePlayer, blackPlayer) {
-    document.querySelector('#whitePlayer').value = whitePlayer;
-	document.querySelector('#blackPlayer').value = blackPlayer;
+    document.querySelector('#whitePlayer').innerHTML = whitePlayer;
+	document.querySelector('#blackPlayer').innerHTML = blackPlayer;
 }
 
 function clearChatElement() {
