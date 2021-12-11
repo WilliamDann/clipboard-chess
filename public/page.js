@@ -20,18 +20,35 @@ function setPanelVisibility(id, to=true) {
     panel.style.visibility = to;
 }
 
-function emitCreateGame(gameID, _playerName, white=true) {
-    playerName = _playerName;
+function handleUseClockClicked() {
+    const elements = document.querySelectorAll('#timeControl *');
 
-    const payload = {}
+    for (let element of elements)
+        element.disabled = !element.disabled;
+}
 
-    payload.gameID     = gameID;
-    payload.playerName = _playerName;
-    payload.white      = white;
+function emitCreateGame() {
+    const payload = {
+        playerName     : document.querySelector('#newGamePlayerName').value,
+        useClock       : document.querySelector("#useClock").checked,
+        
+        tcMin          : document.querySelector('#tcMin').value,
+        tcSec          : document.querySelector("#tcSec").value,
+        tcIncrementMin : document.querySelector('#tcIncrementMin').value,
+        tcIncrementSec : document.querySelector('#tcIncrementSec').value,
+        tcDelayMin     : document.querySelector('#tcDelayMin').value,
+        tcDelaySec     : document.querySelector('#tcDelaySec').value,
+
+        sideToPlay     : document.querySelector('#sideToPlay').value
+    }
+
+    playerName = payload.playerName;
 
     sock.emit('create game', JSON.stringify(payload));
 
     destroyPanel('#join_info');
+    destroyPanel('#create_info');
+
     setPanelVisibility('#game_info', 'visible');
     setPanelVisibility('#chat', 'visible');
 }
@@ -57,6 +74,8 @@ function emitJoinGame(gameID, _playerName) {
     sock.emit('join game', JSON.stringify(payload));
 
     destroyPanel('#join_info');
+    destroyPanel('#create_info');
+
     setPanelVisibility('#game_info', 'visible');
     setPanelVisibility('#chat', 'visible');
 }
@@ -79,5 +98,10 @@ sock.on('update', message => {
 
 sock.on('error', message => {
     console.error(`Websocket Error: ${message}`);
+
+    // TODO better recursion prevention
+    if (message == "No gameID in request") 
+        return;
+
     emitUpdate(gameID);
 });
