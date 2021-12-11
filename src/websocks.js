@@ -90,7 +90,17 @@ module.exports = (socket, db) => {
 
         const board  = new Chess(db.games[data.gameID].fenString);
         const legals = board.moves();
+
+        if (board.turn() == 'w') {
+            if (data.playerName != db.games[data.gameID].whitePlayer)
+                return; // TODO error handling
+        } else {
+            if (data.playerName != db.games[data.gameID].blackPlayer)
+                return; // TODO error handling
+        }
+
         const result = board.move(data.move, {sloppy: true})
+
 
         if (!result)
             return; // TODO error handling
