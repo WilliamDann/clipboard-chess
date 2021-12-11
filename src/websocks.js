@@ -1,6 +1,6 @@
-const id        = require('./id');
-const {Chessgame, blankGame} = require('./chessgame');
-const { Chess } = require('chess.js');
+const id          = require('./id');
+const {blankGame} = require('./chessgame');
+const { Chess }   = require('chess.js');
 
 const socks = new Map()
 

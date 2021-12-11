@@ -42,6 +42,8 @@ function emitCreateGame() {
         sideToPlay     : document.querySelector('#sideToPlay').value
     }
 
+    playerName = payload.playerName;
+
     sock.emit('create game', JSON.stringify(payload));
 
     destroyPanel('#join_info');
@@ -72,6 +74,8 @@ function emitJoinGame(gameID, _playerName) {
     sock.emit('join game', JSON.stringify(payload));
 
     destroyPanel('#join_info');
+    destroyPanel('#create_info');
+
     setPanelVisibility('#game_info', 'visible');
     setPanelVisibility('#chat', 'visible');
 }
