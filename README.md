@@ -1,6 +1,10 @@
 # CSD 122 Chess Server
 A chess server final project for the CSD 122 class at LWTech
 
+# Public Page
+
+There is a public page up at https://pure-woodland-88435.herokuapp.com/ ! Try the app!
+
 # Setup
 The project requires nodejs to run. After you have node installed, you can install all the other dependencies with the command:
 
