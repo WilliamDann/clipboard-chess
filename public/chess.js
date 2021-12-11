@@ -4,6 +4,14 @@ var playerName = null
 var gameID    = null
 
 function onDrop(source, target) {
+	const legals = game.moves();
+	const result = game.move(`${source}${target}`, {sloppy: true})
+
+	if (!result)
+		return 'snapback';
+	if (legals.indexOf(result.san) == -1)
+		return 'snapback';
+		
 	emitMove(gameID, playerName, `${source}${target}`)
 }
 
