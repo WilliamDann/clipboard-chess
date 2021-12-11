@@ -1,5 +1,5 @@
 const id        = require('./id');
-const Chessgame = require('./chessgame');
+const {Chessgame, blankGame} = require('./chessgame');
 const { Chess } = require('chess.js');
 
 const socks = new Map()
@@ -24,7 +24,7 @@ function emitError(client, message) {
 module.exports = (socket, db) => {
     socket.on('create game', message => {
         const data = JSON.parse(message);
-        const obj  = new Chessgame("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+        const obj  = blankGame()
         
         if (!data.gameID)
             data.gameID = id()

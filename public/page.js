@@ -20,6 +20,13 @@ function setPanelVisibility(id, to=true) {
     panel.style.visibility = to;
 }
 
+function handleUseClockClicked() {
+    const elements = document.querySelectorAll('#timeControl *');
+
+    for (let element of elements)
+        element.disabled = !element.disabled;
+}
+
 function emitCreateGame(gameID, _playerName, white=true) {
     playerName = _playerName;
 

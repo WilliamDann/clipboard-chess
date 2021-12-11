@@ -63,12 +63,86 @@
                    <tr>
                        <td>
                             <input type="button" value="Join" onclick="emitJoinGame(getGameID(), getPlayerName())"><br>
-                            <button onclick="emitCreateGame(gameID, getPlayerName(), true)">New Game as White</button><br>
-                            <button onclick="emitCreateGame(gameID, getPlayerName(), false)">New Game as Black</button>
                        </td>
                    </tr>
                </table>
             </div><br>
+
+            <div id="create_info" class="info">
+                <b>Create Game</b>
+                <table>
+                    <tr>
+                        <td align="right">
+                            <p>Player Name:</p>
+                        </td>
+                        <td align="left">
+                            <input id="playerName" type="text">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label for="useClock">Use Clock</label>
+                        <input type="checkbox" id="useClock" onclick="handleUseClockClicked()">
+                        </td>
+                    </tr>
+
+                    <tr id="timeControl">
+                        <td align="right">
+                            <p>Time Control:</p>
+                        </td>
+                        <td align="left">
+                            <input value="10" id="tcMin" type="number">
+                            <p style="display: inline;">minutes</p>
+                            <input value="0" id="tcSec" type="number">
+                            <p style="display: inline;">seconds</p>
+                        </td>
+                    </tr>
+
+                    <tr id="timeControl">
+                        <td align="right">
+                            <p>Increment:</p>
+                        </td>
+                        <td align="left">
+                            <input value="0" id="tcIncrementMin" type="number">
+                            <p style="display: inline;">minutes</p>
+                            <input value="0" id="tcIncrementSec" type="number">
+                            <p style="display: inline;">seconds</p>
+                        </td>
+                    </tr>
+
+                    <tr id="timeControl">
+                        <td align="right">
+                            <p>Delay:</p>
+                        </td>
+                        <td align="left">
+                            <input value="0" id="tcDelayMin" type="number">
+                            <p style="display: inline;">minutes</p>
+                            <input value="0" id="tcDelaySec" type="number">
+                            <p style="display: inline;">seconds</p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="right">
+                            <p>Side To Play:</p>
+                        </td>
+                        <td align="left">
+                            <select id="sideToPlay">
+                                <option>White</option>
+                                <option>Black</option>
+                                <option>Random</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                             <button>Create</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
 
             <div id="game_info" class="info" style='visibility: hidden;'>
                 <b>Game Info</b><br><br>
@@ -91,7 +165,13 @@
         </div>
     </div>
 
+
     <!-- Scritps -->
     <script src="page.js"></script>
     <script src="chess.js"></script>
+
+    <!-- Set clocks to off by default -->
+    <script>
+        handleUseClockClicked();
+    </script>
 </body>
