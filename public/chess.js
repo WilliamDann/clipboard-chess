@@ -3,6 +3,10 @@ var game      = new Chess()
 var playerName = null
 var gameID    = null
 
+var clockInterval = null;
+var whiteTime     = 0.00;
+var blackTime     = 0.00;
+
 function onDrop(source, target) {
 	const legals = game.moves();
 	const result = game.move(`${source}${target}`, {sloppy: true})
@@ -48,6 +52,30 @@ function updateBoard(fen) {
 function updatePlayers(whitePlayer, blackPlayer) {
     document.querySelector('#whitePlayer').innerHTML = whitePlayer;
 	document.querySelector('#blackPlayer').innerHTML = blackPlayer;
+}
+
+function updateClockDisplay() {
+	const timeStr = time => `${~~((time % 3600) / 60)}:${~~time % 60}`;
+
+	document.querySelector('#whiteClock').innerHTML = timeStr(whiteTime);
+	document.querySelector('#blackClock').innerHTML = timeStr(blackTime);
+}
+
+function updateClockTimes(white, black) {
+	whiteTime = white;
+	blackTime = black;
+
+	updateClockDisplay();
+
+	if (!clockInterval)
+		clockInterval = setInterval(() => {
+			if (game.turn() == 'w')
+				whiteTime -= 1
+			else
+				blackTime -= 1
+
+			updateClockDisplay();
+		}, 1000);
 }
 
 function clearChatElement() {

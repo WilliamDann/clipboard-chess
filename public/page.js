@@ -107,6 +107,7 @@ sock.on('update', message => {
     updateStatus();
 
     updatePlayers(data.whitePlayer, data.blackPlayer);
+    updateClockTimes(data.clock.whiteTime, data.clock.blackTime);
     updateChat(data.chat);
 });
 

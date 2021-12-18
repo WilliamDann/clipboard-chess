@@ -23,6 +23,18 @@ function onCreateGame(socket, message, db) {
         if (!obj.setPosition(data.fenString))
             return socket.emit('error', `${data.fenString} is not a valid FEN`);
     
+    if (data.useClock) {
+        let time = 0;
+        time += parseFloat(data.tcMin * 60);
+        time += parseFloat(data.tcSec);
+
+        if (!time)
+            return socket.emit('error', 'Invalid time control information');
+
+        obj.clock.set(time);
+        obj.useClock = true;
+    }
+
     obj.addPlayer(data.playerName, data.sideToPlay);
     obj.registerWatcher(socket);
     obj.emitUpdate();
@@ -45,6 +57,10 @@ function onJoinGame(socket, message, db) {
     if (seats.length == 0)
         return socket.emit('error', 'No open seats in this game');
         
+    if (requestedGame.useClock) {
+        requestedGame.clock.start();
+    }
+
     requestedGame.addPlayer(data.playerName, seats[0])
     requestedGame.registerWatcher(socket);
     requestedGame.emitUpdate();
