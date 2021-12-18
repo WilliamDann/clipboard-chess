@@ -1,4 +1,5 @@
 const { Chess } = require("chess.js");
+const Clock     = require("../clock/clock");
 const Watchable = require("../watchable/watchable");
 const START_POS = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 
@@ -11,6 +12,9 @@ class Game extends Watchable {
         this.fenString   = START_POS;
         this.whitePlayer = null;
         this.blackPlayer = null;
+
+        this.useClock    = false;
+        this.clock       = new Clock();
 
         this.chat = [];
     }
@@ -55,13 +59,14 @@ class Game extends Watchable {
         else
             if (playerName != this.blackPlayer)
                 return false;
-
+            
+        this.clock.hit(parser.turn())
         const result = parser.move(moveString, {sloppy: true});
         if (!result)       
             return false;
         // because .move allows moves with check, we must make sure that the move was legal here
         if (legalMoves.indexOf(result.san) == -1)
-            return false; 
+            return false;
 
         this.fenString = parser.fen();
         return true;
