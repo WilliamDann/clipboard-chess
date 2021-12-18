@@ -1,5 +1,5 @@
-const id        = require('../modules/game/id');
-const Game      = require('../modules/game/game')
+const id   = require('../modules/game/id');
+const Game = require('../modules/game/game');
 
 module.exports = (socket, db) => {
     socket.on('create game', msg => onCreateGame(socket, msg, db));

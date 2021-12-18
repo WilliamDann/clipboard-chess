@@ -27,6 +27,20 @@ function handleUseClockClicked() {
         element.disabled = !element.disabled;
 }
 
+function emitChat() {
+    const payload = {
+        playerName : playerName,
+        gameID     : gameID,
+        message    : document.querySelector('#chatInput').value
+    }
+
+    if (payload.message == '')
+        return;
+
+    sock.emit('game chat', JSON.stringify(payload));
+    document.querySelector('#chatInput').value = '';
+}
+
 function emitCreateGame() {
     const payload = {
         playerName     : document.querySelector('#newGamePlayerName').value,
