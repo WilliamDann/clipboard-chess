@@ -1,4 +1,4 @@
-# CSD 122 Chess Server
+# Clipboard Cess
 A chess server final project for the CSD 122 class at LWTech
 
 # Public Page
