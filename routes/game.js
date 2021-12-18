@@ -25,13 +25,21 @@ function onCreateGame(socket, message, db) {
     
     if (data.useClock) {
         let time = 0;
-        time += parseFloat(data.tcMin * 60);
+        time += parseFloat(data.tcMin) * 60;
         time += parseFloat(data.tcSec);
 
-        if (!time)
+        let inc = 0;
+        inc += parseFloat(data.tcIncrementMin) * 60;
+        inc += parseFloat(data.tcIncrementSec);
+
+        let delay = 0;
+        delay += parseFloat(data.tcDelayMin) * 60;
+        delay += parseFloat(data.tcDelaySec);
+
+        if (time === NaN || inc === NaN || delay === NaN)
             return socket.emit('error', 'Invalid time control information');
 
-        obj.clock.set(time);
+        obj.clock.set(time, inc, delay);
         obj.useClock = true;
     }
 

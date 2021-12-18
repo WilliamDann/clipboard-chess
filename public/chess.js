@@ -6,6 +6,7 @@ var gameID    = null
 var clockInterval = null;
 var whiteTime     = 0.00;
 var blackTime     = 0.00;
+var delay         = 0.00;
 
 function onDrop(source, target) {
 	const legals = game.moves();
@@ -61,14 +62,18 @@ function updateClockDisplay() {
 	document.querySelector('#blackClock').innerHTML = timeStr(blackTime);
 }
 
-function updateClockTimes(white, black) {
+function updateClockTimes(white, black, _delay) {
 	whiteTime = white;
 	blackTime = black;
+	delay     = _delay;
 
 	updateClockDisplay();
 
 	if (!clockInterval)
 		clockInterval = setInterval(() => {
+			if (delay >= 0) 
+				return delay -= 1;
+
 			if (game.turn() == 'w')
 				whiteTime -= 1
 			else

@@ -3,12 +3,18 @@ class Clock {
         this.whiteTime  = 0.00;
         this.blackTime  = 0.00;
 
+        this.increment = 0.00;
+        this.delay     = 0.00;
+
         this.lastUpdate = null;
     }
 
-    set(time) {
+    set(time, increment, delay) {
         this.whiteTime = time;
         this.blackTime = time;
+
+        this.increment = increment;
+        this.delay     = delay;
     }
 
     start() {
@@ -19,13 +25,20 @@ class Clock {
         if (!this.lastUpdate)
             this.start();
 
-        const now = Date.now();
+        const now     = Date.now();
+
+        let elapsed   = (now - this.lastUpdate) - (this.delay * 1000);
+        if (elapsed < 0.00)
+            elapsed = 0.00;
 
         if (color == 'w') {
-            this.whiteTime -= (now - this.lastUpdate) / 1000;
+            this.whiteTime -= elapsed / 1000;
+            this.blackTime += this.increment;
         }
-        else
-            this.blackTime -= (now - this.lastUpdate) / 1000;
+        else {
+            this.blackTime -= elapsed / 1000;
+            this.whiteTime += this.increment;
+        }
 
         this.lastUpdate = now;
     }
