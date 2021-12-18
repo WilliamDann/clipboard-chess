@@ -36,7 +36,7 @@ const db = { games: {} }
 
 // web socket server
 io.on('connection', (sock) => {
-    require('./src/websocks')(sock, db);
+    require('./routes/all')(sock, db);
 })
 
 server.listen(PORT, () => console.log("Running on port " + PORT))
