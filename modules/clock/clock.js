@@ -46,6 +46,6 @@ class Clock {
     get whiteLost() { return this.whiteTime <= 0.00 }
     get blackLost() { return this.blackTime <= 0.00 }
 
-    get clockRunning() { return !this.whiteLost && !this.blackLost }
+    get clockRunning() { return !this.whiteLost && !this.blackLost && this.lastUpdate !== null }
 
 } module.exports = Clock;
