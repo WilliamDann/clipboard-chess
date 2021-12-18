@@ -1,4 +1,4 @@
 module.exports = (app, db) => {
-    require('./chessgame')(app, db);
+    require('./game')(app, db);
     require('./chat')(app, db);
 }
