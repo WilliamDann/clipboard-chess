@@ -41,7 +41,6 @@ function updateStatus() {
 	
 	document.querySelector('#status').innerHTML = status
 	document.querySelector('#fen').innerHTML = game.fen();
-	// document.querySelector('#pgn').innerHTML = game.pgn().;
 	document.querySelector('#gameIDDisplay').innerHTML = gameID;
 }
 	

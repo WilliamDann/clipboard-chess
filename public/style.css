@@ -63,3 +63,7 @@ panel p     { display: table-row;  }
 panel label { display: table-cell; }
 panel input { display: table-cell; }
 /* */
+
+#game_info * {
+    display: inline;
+}
