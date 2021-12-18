@@ -12,7 +12,7 @@ The project requires nodejs to run. After you have node installed, you can insta
 
 After running npm install you can start the server by running the command
 
-`node index.js`
+`node index.js --port 8080`
 
 This will start the server on localhost:8080. You can now navigate to that link in your browser to use the project. To see how the project works you can open two tabs at localhost:8080. On the first tab you will press the 'create a game' button to create a game. There will be a GameID at the top of the screen that you can paste into the second window to join the game.
 
