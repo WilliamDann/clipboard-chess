@@ -49,16 +49,30 @@ function updateBoard(fen) {
 	board.position(fen, true)
 }
 
+function orientBoard(white=true) {
+	board.orientation(white ? 'white' : 'black');
+}
+
 function updatePlayers(whitePlayer, blackPlayer) {
-    document.querySelector('#whitePlayer').innerHTML = whitePlayer;
-	document.querySelector('#blackPlayer').innerHTML = blackPlayer;
+	if (board.orientation() == 'white') {
+		document.querySelector('#bottomPlayer').innerHTML = whitePlayer;
+		document.querySelector('#topPlayer').innerHTML    = blackPlayer;
+	} else {
+		document.querySelector('#topPlayer').innerHTML    = whitePlayer;
+		document.querySelector('#bottomPlayer').innerHTML = blackPlayer;
+	}
 }
 
 function updateClockDisplay() {
 	const timeStr = time => `${~~((time % 3600) / 60)}:${~~time % 60}`;
 
-	document.querySelector('#whiteClock').innerHTML = timeStr(whiteTime);
-	document.querySelector('#blackClock').innerHTML = timeStr(blackTime);
+	if (board.orientation() == 'white') {
+		document.querySelector('#bottomClock').innerHTML = timeStr(whiteTime);
+		document.querySelector('#topClock').innerHTML    = timeStr(blackTime);
+	} else {
+		document.querySelector('#topClock').innerHTML    = timeStr(whiteTime);
+		document.querySelector('#bottomClock').innerHTML = timeStr(blackTime);
+	}
 }
 
 function updateClockTimes(white, black, _delay) {

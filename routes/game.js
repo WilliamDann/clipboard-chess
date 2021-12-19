@@ -43,7 +43,7 @@ function onCreateGame(socket, message, db) {
         obj.useClock = true;
     }
 
-    obj.addPlayer(data.playerName, data.sideToPlay);
+    obj.addPlayer(data.playerName, data.sideToPlay == 'White');
     obj.registerWatcher(socket);
     obj.emitUpdate();
 

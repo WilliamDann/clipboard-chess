@@ -104,6 +104,7 @@ sock.on('update', message => {
     gameID = data.gameID; // TODO no global
 
     updateBoard(data.fenString);
+    orientBoard(data.whitePlayer == playerName);
     updateStatus();
 
     updatePlayers(data.whitePlayer, data.blackPlayer);
