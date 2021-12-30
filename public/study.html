@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<head>
+    <!-- chessjs requires jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"
+        integrity="sha512-xRllwz2gdZciIB+AkEbeq+gVhX8VB8XsfqeFbUh+SzHlN96dEduwtTuVuc2u9EROlmW9+yhRlxjif66ORpsgVA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- chessboardjs -->
+    <link rel="stylesheet" href="chessboardjs/css/chessboard-1.0.0.min.css">
+    <script src="chessboardjs/js/chessboard-1.0.0.min.js"></script>
+
+    <!-- SocketIO -->
+    <script src="https://cdn.socket.io/4.4.0/socket.io.min.js" integrity="sha384-1fOn6VtTq3PWwfsOrk45LnYcGosJwzMHv+Xh/Jx5303FVOXzEnw0EpLv30mtjmlj" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Info -->
+    <title>Clip Chess</title>
+</head>
+
+<body>
+    <!-- Top Menu-->
+    <div class="topbar">
+        <p>Clipboard Chess</p>
+        <a href="index.html">Home</a>
+        <a href="index.html">Play</a>
+        <a href="study.html">Study</a>
+    </div>
+
+    <!-- Game Board -->
+    <div class="row">
+        <div class="column panel">
+            <p id="topPlayer" style="display: inline;">Player One</p>
+            <p id="topClock"  style="display: inline;">0:00</p>
+
+            <div id="myBoard"   style="width: 100%"></div>
+                
+            <p id="bottomPlayer" style="display: inline;">Player Two</p>
+            <p id="bottomClock"  style="display: inline;">0:00</p>
+        </div>
+    </div>
+
+    <!-- Game Info -->
+    <div class="column panel">
+        <div id="join_info" class="info">
+            <b>Join Game</b>
+           <table>
+               <tr>
+                   <td align="right">
+                       <p>Player Name:</p>
+                   </td>
+                   <td align="left">
+                       <input id="playerName" type="text">
+                   </td>
+               </tr>
+
+               <tr>
+                   <td align="right">
+                       <p>GameID: </p>
+                   </td>
+
+                   <td align="left">
+                       <input id="gameID" type="text">
+                   </td>
+               </tr>
+               <tr>
+                   <td>
+                        <input type="button" value="Join" onclick="emitJoinGame(getGameID(), getPlayerName())"><br>
+                   </td>
+               </tr>
+           </table>
+        </div><br>
+
+
+
+    <!-- Scritps -->
+    <script src="page.js"></script>
+    <script src="chess.js"></script>
+
+    <!-- Set clocks to off by default -->
+    <script>
+        handleUseClockClicked();
+    </script>
+</body>
