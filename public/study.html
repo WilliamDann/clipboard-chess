@@ -39,48 +39,22 @@
                 
             <p id="bottomPlayer" style="display: inline;">Player Two</p>
             <p id="bottomClock"  style="display: inline;">0:00</p>
-        </div>
     </div>
 
     <!-- Game Info -->
     <div class="column panel">
-        <div id="join_info" class="info">
-            <b>Join Game</b>
-           <table>
-               <tr>
-                   <td align="right">
-                       <p>Player Name:</p>
-                   </td>
-                   <td align="left">
-                       <input id="playerName" type="text">
-                   </td>
-               </tr>
-
-               <tr>
-                   <td align="right">
-                       <p>GameID: </p>
-                   </td>
-
-                   <td align="left">
-                       <input id="gameID" type="text">
-                   </td>
-               </tr>
-               <tr>
-                   <td>
-                        <input type="button" value="Join" onclick="emitJoinGame(getGameID(), getPlayerName())"><br>
-                   </td>
-               </tr>
-           </table>
-        </div><br>
-
-
+        <div class="info">
+            <b id="game_title">Game Title</b>
+            <br>
+            <i id="game_players">White Player vs Black Player</i>
+            <br>
+            <i id="game_locaiton">Game Location</i>
+            <br>
+            
+            <p id="game_pgn"> 1. </p>
+        </div>
+    </div>
 
     <!-- Scritps -->
-    <script src="page.js"></script>
-    <script src="chess.js"></script>
-
-    <!-- Set clocks to off by default -->
-    <script>
-        handleUseClockClicked();
-    </script>
+    <script src="study.js"></script>
 </body>
